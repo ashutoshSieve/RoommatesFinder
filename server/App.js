@@ -13,7 +13,7 @@ const app = express();
 
 
 app.use(cors({
-    origin: ["http://localhost:3000"],
+    origin: ["https://roommatefinder3.netlify.app"],
     methods: ["GET", "PUT", "POST", "DELETE"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"]
