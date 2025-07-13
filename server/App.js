@@ -313,7 +313,7 @@ app.post("/api/signup", async(req, res) =>{
         res.status(201).json({ message: "User created successfully!", token });
 
     } catch (error) {
-        res.status(500).json({ message: "Error creating user", error.message });
+        res.status(500).json({ message: "Error creating user", error: error.message });
     }
 });
 
@@ -327,12 +327,12 @@ app.post("/api/login", async(req, res) =>{
         }
 
         const token = generateJWT({ id: user._id, name: user.name, email: user.email });
-        res.cookie('jwt', token, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "None" });
+        res.cookie('jwt', token, { httpOnly: true, secure: true, sameSite: "None" });
 
         res.status(200).json({ message: "User logged in successfully!", token });
 
     } catch (error) {
-        res.status(500).json({ message: "Error logging in", error.message });
+        res.status(500).json({ message: "Error logging in", error: error.message });
     }
 });
 
