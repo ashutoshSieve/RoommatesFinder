@@ -39,8 +39,6 @@ const Signup = () => {
       if (!res.ok) {
         throw new Error(data.message || "Signup failed");
       }
-
-      console.log("Signup Success:", data);
       navigate("/profile");
     } catch (err) {
       setError(err.message);
