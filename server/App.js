@@ -143,33 +143,33 @@ app.get("/api/match", jsonwebtoken, async (req, res) => {
       "petsAllowed",
     ];
 
-    const matchedUsers = allUsers
-      .map(user => {
-        let matchScore = 0;
-        comparePrefs.forEach(key => {
-          if (
-            user.preferences?.[key] !== undefined &&
-            user.preferences?.[key] === currentUser.preferences?.[key]
-          ) {
-            matchScore++;
-          }
-        });
-
-        const percentage = Math.round(
-          (matchScore / comparePrefs.length) * 100
-        );
-
-        return {
-          _id: user._id,
-          name: user.name,
-          email: user.email,
-          profileImage: user.profileImage,
-          compatibility: percentage,
-          gender: user.gender,
-          age: user.age,
-          location: user.preferences?.location || "",
-        };
+    const matchedUsers = allUsers.map(user => {
+      let matchScore = 0;
+      comparePrefs.forEach(key => {
+        if (
+          user.preferences?.[key] !== undefined &&
+          user.preferences?.[key] === currentUser.preferences?.[key]
+        ) {
+          matchScore++;
+        }
       });
+    
+      const percentage = Math.round(
+        (matchScore / comparePrefs.length) * 100
+      );
+    
+      return {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        profileImage: user.profileImage,
+        compatibility: percentage,
+        gender: user.gender,
+        age: user.age,
+        city: user.city,                         // ✅ add this
+        preferences: user.preferences || {},     // ✅ add this
+      };
+    });
 
     matchedUsers.sort((a, b) => b.compatibility - a.compatibility);
 
